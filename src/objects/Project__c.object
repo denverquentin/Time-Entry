@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>Project_Layout</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Project_Layout</fullName>
+        <fields>Name</fields>
+        <fields>Client__c</fields>
+        <fields>Is_Active__c</fields>
+        <fields>Code__c</fields>
+        <fields>Bill_By__c</fields>
+        <fields>Budget_By__c</fields>
+        <label>Project Layout</label>
+    </compactLayouts>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>https://help.getharvest.com/api-v2/projects-api/projects/projects/</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Bill_By__c</fullName>
+        <description>The method by which the project is invoiced.</description>
+        <externalId>false</externalId>
+        <label>Bill By</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Project</fullName>
+                    <default>false</default>
+                    <label>Project</label>
+                </value>
+                <value>
+                    <fullName>Tasks</fullName>
+                    <default>false</default>
+                    <label>Tasks</label>
+                </value>
+                <value>
+                    <fullName>People</fullName>
+                    <default>false</default>
+                    <label>People</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Budget_By__c</fullName>
+        <description>The method by which the project is budgeted.</description>
+        <externalId>false</externalId>
+        <label>Budget By</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>project</fullName>
+                    <default>false</default>
+                    <label>Hours Per Project</label>
+                </value>
+                <value>
+                    <fullName>project_cost</fullName>
+                    <default>false</default>
+                    <label>Total Project Fees</label>
+                </value>
+                <value>
+                    <fullName>task</fullName>
+                    <default>false</default>
+                    <label>Hours Per Task</label>
+                </value>
+                <value>
+                    <fullName>person</fullName>
+                    <default>false</default>
+                    <label>Hours Per Person</label>
+                </value>
+                <value>
+                    <fullName>none</fullName>
+                    <default>false</default>
+                    <label>No Budget</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Budget__c</fullName>
+        <description>The budget in hours for the project when budgeting by time.</description>
+        <externalId>false</externalId>
+        <label>Budget (In Hours)</label>
+        <precision>11</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client__c</fullName>
+        <description>Client (Account) for the Project</description>
+        <externalId>false</externalId>
+        <label>Client</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Projects</relationshipLabel>
+        <relationshipName>Projects</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Code__c</fullName>
+        <description>The code associated with the project.</description>
+        <externalId>false</externalId>
+        <label>Code</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cost_Budget_Include_Expenses__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Option for budget of Total Project Fees projects to include tracked expenses.</description>
+        <externalId>false</externalId>
+        <label>Cost Budget Include Expenses</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Cost_Budget__c</fullName>
+        <description>The monetary budget for the project when budgeting by money.</description>
+        <externalId>false</externalId>
+        <label>Cost Budget</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Ends_On__c</fullName>
+        <description>Date the project will end.</description>
+        <externalId>false</externalId>
+        <label>Ends On</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Fee__c</fullName>
+        <description>The amount you plan to invoice for the project. Only used by fixed-fee projects.</description>
+        <externalId>false</externalId>
+        <label>Fee</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Harvest_Id__c</fullName>
+        <description>Will be retrieved and saved here by Harvest API code in the future - no need to set. marking as external id so we can search on it</description>
+        <externalId>true</externalId>
+        <label>Harvest Id</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Whether the project is active or archived.</description>
+        <externalId>false</externalId>
+        <label>Is Active</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Billable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Whether the project is billable or not.</description>
+        <externalId>false</externalId>
+        <label>Is Billable</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Fixed_Fee__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Whether the project is a fixed-fee project or not.</description>
+        <externalId>false</externalId>
+        <label>Is Fixed Fee</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <description>Project notes.</description>
+        <externalId>false</externalId>
+        <label>Notes</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Notify_When_Over_Budget__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Whether project managers should be notified when the project goes over budget.</description>
+        <externalId>false</externalId>
+        <label>Notify When Over Budget</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Over_Budget_Notification_Date__c</fullName>
+        <description>Date of last over budget notification. If none have been sent, this will be null.</description>
+        <externalId>false</externalId>
+        <label>Over Budget Notification Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Over_Budget_Notification_Percentage__c</fullName>
+        <description>Percentage value used to trigger over budget email alerts.</description>
+        <externalId>false</externalId>
+        <label>Over Budget Notification Percentage</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Project_Hourly_Rate__c</fullName>
+        <description>Rate for projects billed by Project Hourly Rate.</description>
+        <externalId>false</externalId>
+        <label>Project Hourly Rate</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Show_Budget_To_All__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Option to show project budget to all employees. Does not apply to Total Project Fee projects.</description>
+        <externalId>false</externalId>
+        <label>Show Budget To All</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Starts_On__c</fullName>
+        <description>Date the project was started.</description>
+        <externalId>false</externalId>
+        <label>Starts On</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <label>Project</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Projects</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Client__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Is_Active__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Code__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Bill_By__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Client__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Is_Active__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Code__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Bill_By__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Client__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Is_Active__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Code__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Bill_By__c</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Client__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Is_Active__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Code__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Bill_By__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Fixed_Fee_Required</fullName>
+        <active>true</active>
+        <description>Require a value for Fee if the Is Fixed Fee field is checked</description>
+        <errorConditionFormula>AND(
+Is_Fixed_Fee__c,
+ISBLANK(Fee__c)
+)</errorConditionFormula>
+        <errorDisplayField>Fee__c</errorDisplayField>
+        <errorMessage>Fee is required if the Is Fixed Fee field is checked.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Require_Project_Hourly_Rate</fullName>
+        <active>true</active>
+        <description>Require Project Hourly Rate to be set if Bill By = Hours Per Project</description>
+        <errorConditionFormula>AND( 
+ISBLANK(Project_Hourly_Rate__c), 
+ISPICKVAL(Bill_By__c, &quot;Project&quot;) 
+)</errorConditionFormula>
+        <errorDisplayField>Project_Hourly_Rate__c</errorDisplayField>
+        <errorMessage>Project Hourly Rate is required if the Bill By field = Hours Per Project</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Start_Date_End_Date_Validation</fullName>
+        <active>true</active>
+        <description>Don&apos;t let the End Date be before the Start Date</description>
+        <errorConditionFormula>AND(
+NOT(ISBLANK(Starts_On__c)),
+NOT(ISBLANK(Ends_On__c)),
+Starts_On__c &gt; Ends_On__c
+)</errorConditionFormula>
+        <errorDisplayField>Ends_On__c</errorDisplayField>
+        <errorMessage>The End Ons Date must be after the Starts On Date.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

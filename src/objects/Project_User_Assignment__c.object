@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>Project_User_Assignment_Layout</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Project_User_Assignment_Layout</fullName>
+        <fields>Project__c</fields>
+        <fields>User__c</fields>
+        <fields>Is_Active__c</fields>
+        <fields>Is_Project_Manager__c</fields>
+        <label>Project User Assignment Layout</label>
+    </compactLayouts>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>https://help.getharvest.com/api-v2/projects-api/projects/user-assignments/
+Link table between custom Project object and standard User object</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Budget__c</fullName>
+        <description>Budget used when the project’s budget_by is person.</description>
+        <externalId>false</externalId>
+        <label>Budget</label>
+        <precision>11</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Harvest_Id__c</fullName>
+        <description>Will be retrieved and saved here by Harvest API code in the future - no need to set. marking as external id so we can search on it</description>
+        <externalId>true</externalId>
+        <label>Harvest Id</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hourly_Rate__c</fullName>
+        <description>Rate used when the project’s bill_by is People.</description>
+        <externalId>false</externalId>
+        <label>Hourly Rate</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Whether the user assignment is active or archived.</description>
+        <externalId>false</externalId>
+        <label>Is Active</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Project_Manager__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines if the user has project manager permissions for the project.</description>
+        <externalId>false</externalId>
+        <label>Is Project Manager</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Project__c</fullName>
+        <externalId>false</externalId>
+        <label>Project</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>Project User Assignments</relationshipLabel>
+        <relationshipName>Project_User_Assignments</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>User__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>An object containing the id and name of the associated user.</description>
+        <externalId>false</externalId>
+        <label>User</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Project_User_Assignments</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>Project User Assignment</label>
+    <nameField>
+        <displayFormat>{0000000}</displayFormat>
+        <label>Id</label>
+        <trackHistory>true</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Project User Assignments</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Require_Budget</fullName>
+        <active>true</active>
+        <description>Require Budget to be set if Project’s Budget By = Hours Per Person</description>
+        <errorConditionFormula>AND(
+ISBLANK(Budget__c),
+ISPICKVAL(Project__r.Budget_By__c, &quot;person&quot;)
+)
+/*
+person is API value for Hours Per Person
+*/</errorConditionFormula>
+        <errorDisplayField>Budget__c</errorDisplayField>
+        <errorMessage>Budget is required if the Project - Budget By field = Hours Per Person</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Require_Hourly_Rate</fullName>
+        <active>true</active>
+        <description>Require Hourly Rate to be set if Project’s Bill By = People</description>
+        <errorConditionFormula>AND(
+ISBLANK(Hourly_Rate__c),
+ISPICKVAL(Project__r.Bill_By__c, &quot;People&quot;)
+)</errorConditionFormula>
+        <errorDisplayField>Hourly_Rate__c</errorDisplayField>
+        <errorMessage>Hourly Rate is required if the Project - Bill By field = People</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

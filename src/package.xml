@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>TimeEntryController</members>
+        <members>TimeEntryControllerTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>TimeEntryComponent</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+    <types>
+        <members>Account.Client_Layout</members>
+        <name>CompactLayout</name>
+    </types>
+    <types>
+        <members>Time_Tracking</members>
+        <members>Time_Tracking_Lightning</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>Account.Currency__c</members>
+        <members>Account.Harvest_Id__c</members>
+        <members>Account.Is_Active__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Project_Task_Assignment__c</members>
+        <members>Project_Task__c</members>
+        <members>Project_User_Assignment__c</members>
+        <members>Project__c</members>
+        <members>Time_Entry__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Project_Task__c</members>
+        <members>Project__c</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>Currency_Code</members>
+        <name>GlobalValueSet</name>
+    </types>
+    <types>
+        <members>Account-Client Layout</members>
+        <members>Project_Task_Assignment__c-Project Task Assignment Layout</members>
+        <members>Project_Task__c-Project Task Layout</members>
+        <members>Project_User_Assignment__c-Project User Assignment Layout</members>
+        <members>Project__c-Project Layout</members>
+        <members>Time_Entry__c-Time Entry Layout</members>
+        <members>User-Time Entry User Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>Admin</members>
+        <members>Time Tracking Profile</members>
+        <name>Profile</name>
+    </types>
+    <types>
+        <members>Account.Client</members>
+        <name>RecordType</name>
+    </types>
+    <types>
+        <members>User.Require_First_Name</members>
+        <name>ValidationRule</name>
+    </types>
+    <version>41.0</version>
+</Package>

@@ -1,0 +1,2 @@
+projectName = Time Entry
+author = Quentin Fish

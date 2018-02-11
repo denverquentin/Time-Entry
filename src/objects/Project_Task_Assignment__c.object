@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>Project_Task_Assignment</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Project_Task_Assignment</fullName>
+        <fields>Project__c</fields>
+        <fields>Project_Task__c</fields>
+        <fields>Is_Active__c</fields>
+        <fields>Billable__c</fields>
+        <label>Project Task Assignment</label>
+    </compactLayouts>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>https://help.getharvest.com/api-v2/projects-api/projects/task-assignments/
+Link table between custom Project object and custom Project Task object</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Billable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Whether the task assignment is billable or not. For example: if set to true, all time tracked on this project for the associated task will be marked as billable.</description>
+        <externalId>false</externalId>
+        <label>Billable</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Budget__c</fullName>
+        <description>Budget used when the project’s budget_by is task or task_fees.</description>
+        <externalId>false</externalId>
+        <label>Budget</label>
+        <precision>11</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Harvest_Id__c</fullName>
+        <description>Will be retrieved and saved here by Harvest API code in the future - no need to set. marking as external id so we can search on it</description>
+        <externalId>true</externalId>
+        <label>Harvest Id</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hourly_Rate__c</fullName>
+        <description>Rate used when the project’s bill_by is Tasks.</description>
+        <externalId>false</externalId>
+        <label>Hourly Rate</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Whether the task assignment is active or archived.</description>
+        <externalId>false</externalId>
+        <label>Is Active</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Project_Task__c</fullName>
+        <description>Has lookup filter that requires a Project Task to be Active</description>
+        <externalId>false</externalId>
+        <label>Project Task</label>
+        <lookupFilter>
+            <active>true</active>
+            <errorMessage>Only Active Project Tasks can be used for a Project Task Assignment</errorMessage>
+            <filterItems>
+                <field>Project_Task__c.Is_Active__c</field>
+                <operation>equals</operation>
+                <value>True</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Project_Task__c</referenceTo>
+        <relationshipLabel>Project Task Assignments</relationshipLabel>
+        <relationshipName>Project_Task_Assignments</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Project__c</fullName>
+        <externalId>false</externalId>
+        <label>Project</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>Project Task Assignments</relationshipLabel>
+        <relationshipName>Project_Task_Assignments</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <label>Project Task Assignment</label>
+    <nameField>
+        <displayFormat>{0000000}</displayFormat>
+        <label>Id</label>
+        <trackHistory>true</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Project Task Assignments</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Require_Budget</fullName>
+        <active>true</active>
+        <description>Require Budget to be set if Project’s Budget By = Hours Per Task</description>
+        <errorConditionFormula>AND( 
+ISBLANK(Budget__c), 
+ISPICKVAL(Project__r.Budget_By__c, &quot;task&quot;) 
+) 
+/* 
+task is API value for Hours Per Task
+*/</errorConditionFormula>
+        <errorDisplayField>Budget__c</errorDisplayField>
+        <errorMessage>Budget is required if the Project - Budget By field = Hours Per Task</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Require_Hourly_Rate</fullName>
+        <active>true</active>
+        <description>Require Hourly Rate to be set if Project’s Bill By = Tasks</description>
+        <errorConditionFormula>AND( 
+ISBLANK(Hourly_Rate__c), 
+ISPICKVAL(Project__r.Bill_By__c, &quot;Tasks&quot;) 
+)</errorConditionFormula>
+        <errorDisplayField>Hourly_Rate__c</errorDisplayField>
+        <errorMessage>Hourly Rate is required if the Project - Bill By field = Tasks</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

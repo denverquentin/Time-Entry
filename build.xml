@@ -1,0 +1,130 @@
+<project name="Salesforce Build Script" default="help" basedir="." xmlns:sf="antlib:com.salesforce">
+	<property name="dir.deploy.lightning" value="_lightningDeploy"/>
+	<property name="dir.docs" value="apexDocumentation"/>
+	<property name="dir.source" value="src"/>
+	<property name="sf.env" value="prod"/>
+
+	<tstamp>
+		<format property="dir.today" pattern="yyyy-MM-dd-hhmmss"/>
+	</tstamp>
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
+
+	<target name="help">
+		<echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"/>
+		<echo message="the following targets are part of this ant script:"/>
+		<echo message=""/>
+		<echo message="help - displays this message"/>
+		<echo message=""/>
+		<echo message="getMetadata - gets all metadata from SF - stores in src dir"/>
+		<echo message=""/>
+		<echo message="saveLightning - saves all lightning components from local to SF"/>
+		<echo message=""/>
+		<echo message="runTests - runs all tests in SF"/>
+		<echo message=""/>
+		<echo message="deployMetadata - deploy all local metadata to SF"/>
+		<echo message=""/>
+		<echo message="checkMetadataDeploy - does a check on a local metadata deploy to SF"/>
+		<echo message=""/>
+		<echo message="generateDocumentation - generates documentation for apex classes"/>
+		<echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"/>
+	</target>
+
+
+	<target name="init">
+		<tstamp>
+			<format property="time.start" pattern="MM-dd-yyyy hh:mm:ss"/>
+		</tstamp>
+		<echo message="started @ ${time.start}"/>
+		<!-- contains properties for SF login -->
+		<property file="src/iForce_build.properties"/>
+		<echo message="SF username = ${username}"/>
+	</target>
+
+
+	<target name="getMetadata" depends="init">
+		<sf:retrieve username="${username}" password="${password}" serverurl="${serverurl}"
+			retrieveTarget="${dir.source}" unpackaged="package.xml" pollWaitMillis="6000" maxPoll="30"/>
+
+		<tstamp>
+			<format property="time.stop" pattern="MM-dd-yyyy hh:mm:ss"/>
+		</tstamp>
+		<echo message="stopped @ ${time.stop}"/>
+	</target>
+
+
+	<!-- saves all lightning components from local to SF - haven't hacked IDE code to do this yet -->
+	<target name="saveLightning" depends="init">
+		<mkdir dir="${dir.deploy.lightning}/${dir.source}/aura"/>
+		<copy todir="${dir.deploy.lightning}/${dir.source}/aura">
+			<fileset dir="${dir.source}/aura"/>
+		</copy>
+
+		<sf:deploy username="${username}" password="${password}" serverurl="${serverurl}"
+			checkOnly="false" runAllTests="true" logType="Detail" pollWaitMillis="5000" maxPoll="30"
+			deployRoot="${dir.deploy.lightning}/${dir.source}/"/>
+
+		<delete verbose="true" quiet="false" dir="${dir.deploy.lightning}/${dir.source}/aura"/>
+		<tstamp>
+			<format property="time.stop" pattern="MM-dd-yyyy hh:mm:ss"/>
+		</tstamp>
+		<echo message="stopped @ ${time.stop}"/>
+	</target>
+
+
+	<target name="runTests" depends="init">
+		<sf:deploy username="${username}" password="${password}" serverurl="${serverurl}"
+			checkOnly="true" runAllTests="true" logType="Detail" pollWaitMillis="20000" maxPoll="30" deployRoot="${dir.source}"/>
+
+		<tstamp>
+			<format property="time.stop" pattern="MM-dd-yyyy hh:mm:ss"/>
+		</tstamp>
+		<echo message="stopped @ ${time.stop}"/>
+	</target>
+
+
+	<target name="deployMetadata" depends="init">
+		<sf:deploy username="${username}" password="${password}" serverurl="${serverurl}"
+			checkOnly="false" runAllTests="true" logType="Detail" pollWaitMillis="20000" maxPoll="30" deployRoot="${dir.source}"/>
+
+		<tstamp>
+			<format property="time.stop" pattern="MM-dd-yyyy hh:mm:ss"/>
+		</tstamp>
+		<echo message="stopped @ ${time.stop}"/>
+	</target>
+
+
+	<target name="checkMetadataDeploy" depends="init">
+		<sf:deploy username="${prod.sf.user}" password="${prod.sf.pwd}" serverurl="${prod.sf.url}" checkOnly="true"
+			runAllTests="true" logType="None" pollWaitMillis="20000" maxPoll="50" deployRoot="${dir.source}" ignoreWarnings="true"/>
+
+		<tstamp>
+			<format property="time.stop" pattern="MM-dd-yyyy hh:mm:ss"/>
+		</tstamp>
+		<echo message="stopped @ ${time.stop}"/>
+	</target>
+
+
+	<!-- requires SfApexDoc.jar in the Ant/lib directory
+	https://gitlab.com/StevenWCox/sfapexdoc
+	https://gitlab.com/StevenWCox/sfapexdoc/wikis/Usage
+	-->
+	<target name="generateDocumentation">
+		<delete verbose="true" quiet="false" dir="${dir.docs}/SfApexDocs"/>
+
+		<java fork="true" failonerror="true" jar="${dir.docs}/sfApexDoc.jar">
+			<arg line="-s src/classes -t apexDocumentation/ -a docAuthor.txt -h docHome.txt -p global,public,private,protected" />
+		</java>
+	</target>
+
+
+	<target name="fixEOL">
+		<fixcrlf srcdir="${dir.source}" includes="**/*.cls,**/*.trigger" fixlast="true"/>
+	</target>
+
+
+    <target name="diagnostics" description="diagnostics">
+		<diagnostics/>
+    </target>
+</project>

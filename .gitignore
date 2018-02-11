@@ -1,0 +1,5 @@
+_lightningDeploy
+*.sublime-project
+*.sublime-workspace
+iForce_build.properties
+iForce_build.xml
