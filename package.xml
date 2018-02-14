@@ -6,19 +6,39 @@
     - be VERY specific to the metadata we want so nothing accidentally slips in to cause packaging issues
     -->
     <types>
+        <members>BatchGenerateWeeklyTimesheet</members>
+        <members>BatchGenerateWeeklyTimesheetTest</members>
+        <members>BatchScheduler</members>
+        <members>BatchSchedulerTest</members>
+        <members>Constants</members>
+        <members>SObjectDomain</members>
+        <members>SObjectDomainTest</members>
+        <members>TimeEntries</members>
+        <members>TimeEntriesService</members>
+        <members>TimeEntriesTest</members>
+        <members>TimeEntryListController</members>
+        <members>TimeEntryListControllerTest</members>
+        <members>WeeklyTimeSheets</members>
+        <members>WeeklyTimeSheetsService</members>
+        <members>WeeklyTimeSheetsTest</members>
+        <members>TimeEntry</members>
         <members>TimeEntryController</members>
         <members>TimeEntryControllerTest</members>
+        <members>TimeEntryException</members>
+        <members>TimeEntryExceptionTest</members>
+        <members>Utils</members>
+        <members>UtilsTest</members>
         <name>ApexClass</name>
     </types>
-<!--
     <types>
-        <members></members>
-        <members></members>
+        <members>TimeEntriesTrigger</members>
+        <members>WeelyTimeSheetsTrigger</members>
         <name>ApexTrigger</name>
     </types>
--->
     <types><!-- lightning components -->
+        <members>Message</members>
         <members>TimeEntryComponent</members>
+        <members>TimeEntryListComponent</members>
         <name>AuraDefinitionBundle</name>
     </types>
     <types>
@@ -28,6 +48,7 @@
         <members>Project_Task_Assignment__c.Project_Task_Assignment</members>
         <members>Project_User_Assignment__c.Project_User_Assignment_Layout</members>
         <members>Time_Entry__c.Time_Entry_Layout</members>
+        <members>Weekly_Time_Sheet__c.Weekly_Time_Sheet_Layout</members>
         <name>CompactLayout</name>
     </types>
     <types>
@@ -66,19 +87,22 @@
         <members>Project_Task_Assignment__c</members>
         <members>Project_User_Assignment__c</members>
         <members>Time_Entry__c</members>
+        <members>Weekly_Time_Sheet__c</members>
         <name>CustomObject</name>
     </types>
     <types>
         <members>Project__c</members>
         <members>Project_Task__c</members>
-        <!--<members>Time_Entry__c</members> NEED THIS? -->
+        <members>Weekly_Time_Sheet__c</members>
         <name>CustomTab</name>
     </types>
-<!--todo: will need this
-    <types> lightning page layouts 
+
+    <types><!-- lightning page layouts -->
+        <members>Project_Record_Page</members>
+        <members>Time_Entry_Record_Page</members>
+        <members>Weekly_Time_Sheet_Record_Page</members>
         <name>FlexiPage</name>
     </types>
-    -->
     <types><!-- global picklist values -->
         <members>Currency_Code</members>
         <name>GlobalValueSet</name>
@@ -91,6 +115,7 @@
         <members>Project_User_Assignment__c-Project User Assignment Layout</members>
         <members>Time_Entry__c-Time Entry Layout</members>
         <members>User-Time Entry User Layout</members>
+        <members>Weekly_Time_Sheet__c-Weekly Time Sheet Layout</members>
         <name>Layout</name>
     </types>
 <!--
@@ -112,11 +137,11 @@
 <!--todo - need any of these?
     <types>
         <members></members>
-        <name>ListView</name>
+        <name>QuickAction</name>
     </types>
     <types>
         <members></members>
-        <name>QuickAction</name>
+        <name>ListView</name>
     </types>
     <types>
         <members></members>

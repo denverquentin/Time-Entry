@@ -1,7 +1,6 @@
 # Time Entry Application
 Metadata, Apex Code and build/migration script for a Time Entry application build on the Salesforce Platform.
 
-[Apex Classes Documentation](/apexDocumentation/SfApexDocs/index.html)
 ------
 ##### Salesforce Objects Used and Why
 The data model in Salesforce is based on [Version 2 of the Harvest API](https://help.getharvest.com/api-v2/).

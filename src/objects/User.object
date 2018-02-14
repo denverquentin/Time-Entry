@@ -1,5 +1,164 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Avatar_Url__c</fullName>
+        <description>The URL to the user&apos;s avatar image.</description>
+        <externalId>false</externalId>
+        <label>Avatar Url</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Can_Create_Invoices__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Whether the user can create invoices. Only applicable to project managers.</description>
+        <externalId>false</externalId>
+        <label>Can Create Invoices</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Can_Create_Projects__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Whether the user can create projects. Only applicable to project managers.</description>
+        <externalId>false</externalId>
+        <label>Can Create Projects</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Can_See_Rates__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Whether the user can see billable rates on projects. Only applicable to project managers.</description>
+        <externalId>false</externalId>
+        <label>Can See Rates</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Cost_Rate__c</fullName>
+        <description>The cost rate to use for this user when calculating a project&apos;s costs vs billable amount.</description>
+        <externalId>false</externalId>
+        <label>Cost Rate</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Default_Hourly_Rate__c</fullName>
+        <description>The billable rate to use for this user when they are added to a project.</description>
+        <externalId>false</externalId>
+        <label>Default Hourly Rate</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Harvest_Id__c</fullName>
+        <description>Will be retrieved and saved here by Harvest API code in the future - no need to set. marking as external id so we can search on it</description>
+        <externalId>true</externalId>
+        <label>Harvest Id</label>
+        <length>10</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Has_Access_To_All_Future_Projects__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Whether the user should be automatically added to future projects.</description>
+        <externalId>false</externalId>
+        <label>Has Access To All Future Projects</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Admin__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Whether the user has admin permissions.</description>
+        <externalId>false</externalId>
+        <label>Is Admin</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Contractor__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Whether the user is a contractor or an employee.</description>
+        <externalId>false</externalId>
+        <label>Is Contractor</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Project_Manager__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Whether the user has project manager permissions.</description>
+        <externalId>false</externalId>
+        <label>Is Project Manager</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Roles__c</fullName>
+        <description>The role names assigned to this person.</description>
+        <externalId>false</externalId>
+        <label>Roles</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>CEO</fullName>
+                    <default>false</default>
+                    <label>CEO</label>
+                </value>
+                <value>
+                    <fullName>Founder</fullName>
+                    <default>false</default>
+                    <label>Founder</label>
+                </value>
+                <value>
+                    <fullName>Designer</fullName>
+                    <default>false</default>
+                    <label>Designer</label>
+                </value>
+                <value>
+                    <fullName>Developer</fullName>
+                    <default>false</default>
+                    <label>Developer</label>
+                </value>
+                <value>
+                    <fullName>Project Manager</fullName>
+                    <default>false</default>
+                    <label>Project Manager</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Weekly_Capacity__c</fullName>
+        <description>The number of hours per week this person is available to work in seconds. For example, if a person&apos;s capacity is 35 hours, the API will return 126000 seconds.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>In Seconds</inlineHelpText>
+        <label>Weekly Capacity</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
     <validationRules>
         <fullName>Require_First_Name</fullName>
         <active>true</active>

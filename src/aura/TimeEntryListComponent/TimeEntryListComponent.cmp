@@ -1,0 +1,113 @@
+<aura:component implements="force:hasRecordId,flexipage:availableForRecordHome" controller="TimeEntryListController" access="global">
+	<aura:attribute name="data" type="Object"/>
+<!--
+	<aura:attribute name="timeEntries" type="List"/>
+	<aura:attribute name="timeEntryColumns" type="List"/>
+-->
+	<aura:attribute name="messageTitle" type="String"/>
+	<aura:attribute name="messageSeverity" type="String"/>
+	<aura:attribute name="messages" type="String[]"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<!-- hacky but works if needed - refresh anytime a toast is displayed to see changes -->
+	<aura:handler event="force:showToast" action="{!c.doInit}" />
+
+	<lightning:card iconName="custom:custom95" title="{!'Time Entries for ' + v.data.userName}">
+		<aura:set attribute="actions">
+			<aura:if isTrue="{!v.data.canAddTimeEntry}">
+				<lightning:button label="New" title="New Time Entry" variant="brand" onclick="{!c.newTimeEntry}"/>
+			</aura:if>
+
+			<aura:if isTrue="{!v.data.canSubmitTimeSheet}">
+				<lightning:button label="Submit" title="Submit Time Sheet" variant="brand" onclick="{!c.submitTimeSheet}"/>
+			</aura:if>
+
+			<aura:if isTrue="{!v.data.canApproveTimeSheet}">
+				<lightning:button label="Approve" title="Approve Time Sheet" variant="brand" onclick="{!c.approveTimeSheet}"/>
+			</aura:if>
+		</aura:set>
+
+		<div class="slds-card__body slds-card__body_inner slds-border_top">
+
+			<c:Message messageTitle="{!v.messageTitle}" messageSeverity="{!v.messageSeverity}" messages="{!v.messages}"/>
+
+			<aura:if isTrue="{!v.data.sobjectType == 'Weekly_Time_Sheet__c'}">
+				<div class="slds-grid slds-wrap">
+					<div class="slds-size_1-of-2">
+						<label class="slds-form-element__label"> Total Hours </label>
+						<div class="slds-form-element__control" style="min-height: 18px;">
+							<lightning:formattedNumber value="{!v.data.totalHoursForWeek}" minimumFractionDigits="2" maximumFractionDigits="2"/>
+						</div>
+					</div>
+					<div class="slds-size_1-of-2">
+						<label class="slds-form-element__label"> Total Billable Amount </label>
+						<div class="slds-form-element__control" style="min-height: 18px;">
+							<lightning:formattedNumber value="{!v.data.totalBillableAmount}" style="currency" currencyCode="USD"/>
+						</div>
+					</div>
+					<div class="slds-size_2-of-2">&nbsp;</div>
+				</div>
+
+				<div class="slds-grid slds-wrap slds-grid_align-spread">
+					<aura:iteration items="{!v.data.timeEntries}" var="d">
+						<div class="slds-col slds-box slds-m-bottom_small">
+							<lightning:tile >
+								<p class="slds-truncate slds-text-title">{!d.clientAndProjectName}</p>
+								<p class="slds-truncate">Task: {!d.projectTaskName}</p>
+								<p class="slds-truncate"><lightning:formattedDateTime value="{!d.entryDate}" year="2-digit" month="short" day="2-digit" weekday="long"/></p>
+								<aura:if isTrue="{!d.hours != null}">
+									<p class="slds-truncate">Hours: <lightning:formattedNumber value="{!d.hours}" minimumFractionDigits="2" maximumFractionDigits="2"/></p>
+								</aura:if>
+								<aura:if isTrue="{!d.isRunning}">
+									<p class="slds-truncate slds-border_top slds-align_absolute-center slds-p-top_small">
+										<lightning:button variant="destructive" label="Stop Timer" onclick="{!c.toggleTimer}" value="{!d.id}"/>
+									</p>
+								</aura:if>
+								<aura:if isTrue="{!and(!d.isRunning, !d.isLocked, !d.isClosed)}">
+									<p class="slds-truncate slds-border_top slds-align_absolute-center slds-p-top_small">
+										<lightning:button variant="success" label="Start Timer" onclick="{!c.toggleTimer}" value="{!d.id}"/>
+									</p>
+								</aura:if>
+							</lightning:tile>
+						</div>
+					</aura:iteration>
+				</div>
+			</aura:if>
+
+			<aura:if isTrue="{!v.data.sobjectType == 'Project__c'}">
+				<br/>
+				<div class="slds-grid slds-wrap slds-grid_align-spread">
+					<aura:iteration items="{!v.data.timeEntries}" var="d">
+						<aura:if isTrue="{!d.projectId == v.recordId}"><!-- only show Time Entries for the current project -->
+							<div class="slds-col slds-box slds-m-bottom_small">
+								<lightning:tile >
+									<p class="slds-truncate">Task: {!d.projectTaskName}</p>
+									<p class="slds-truncate"><lightning:formattedDateTime value="{!d.entryDate}" year="2-digit" month="short" day="2-digit" weekday="long"/></p>
+									<aura:if isTrue="{!d.hours != null}">
+										<p class="slds-truncate">Hours: <lightning:formattedNumber value="{!d.hours}" minimumFractionDigits="2" maximumFractionDigits="2"/></p>
+									</aura:if>
+									<aura:if isTrue="{!d.isRunning}">
+										<p class="slds-truncate slds-border_top slds-align_absolute-center slds-p-top_small">
+											<lightning:button variant="destructive" label="Stop Timer" onclick="{!c.toggleTimer}" value="{!d.id}"/>
+										</p>
+									</aura:if>
+									<aura:if isTrue="{!and(!d.isRunning, !d.isLocked, !d.isClosed)}">
+										<p class="slds-truncate slds-border_top slds-align_absolute-center slds-p-top_small">
+											<lightning:button variant="success" label="Start Timer" onclick="{!c.toggleTimer}" value="{!d.id}"/>
+										</p>
+									</aura:if>
+								</lightning:tile>
+							</div>
+						</aura:if>
+					</aura:iteration>
+				</div>
+			</aura:if>
+<!--	code for displaying a table - gonna try tiles with a fancy grid layout instead
+			<aura:if isTrue="{!v.timeEntries.length > 0}">
+				<lightning:datatable data="{!v.timeEntries}" columns="{!v.timeEntryColumns}" keyField="Id" hideCheckboxColumn="true"/>
+				<br/>
+			</aura:if>
+-->
+		</div>
+	</lightning:card>
+</aura:component>

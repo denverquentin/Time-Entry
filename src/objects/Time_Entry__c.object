@@ -38,10 +38,24 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <type>Default</type>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Time_Entry_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
     </actionOverrides>
     <allowInChatterGroups>false</allowInChatterGroups>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <compactLayoutAssignment>Time_Entry_Layout</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Time_Entry_Layout</fullName>
+        <fields>User__c</fields>
+        <fields>Client__c</fields>
+        <fields>Project__c</fields>
+        <fields>Project_Task__c</fields>
+        <fields>Weekly_Time_Sheet__c</fields>
+        <fields>Hours__c</fields>
+        <label>Time Entry Layout</label>
+    </compactLayouts>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>https://help.getharvest.com/api-v2/timesheets-api/timesheets/time-entries/</description>
     <enableActivities>false</enableActivities>
@@ -54,8 +68,25 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
+        <fullName>Billable_Amount__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Billable__c, Billable_Rate__c * Hours__c, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>If Time Entry is Billable, multiplies Billable Rate by Hours</inlineHelpText>
+        <label>Billable Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
         <fullName>Billable_Rate__c</fullName>
-        <description>The billable rate for the time entry.</description>
+        <description>The billable rate for the time entry. This will be set for every Time Entry record and will be set according to the Project - Bill By field. 
+If value = Project, use Project__c.Project_Hourly_Rate__c value
+if value = Tasks, use Project_Task_Assignment__c.Hourly_Rate__c
+if value = People, use Project_User_Assignment__c.Hourly_Rate__c</description>
         <externalId>false</externalId>
         <label>Billable Rate</label>
         <precision>6</precision>
@@ -68,10 +99,10 @@
     <fields>
         <fullName>Billable__c</fullName>
         <defaultValue>false</defaultValue>
-        <description>Whether or not the time entry is billable.</description>
+        <description>Whether or not the time entry is billable. This will be checked for the Time Entry record if Project__c.Bill_By__c = Project or People and Project__c.Is_Billable__c = true OR if Project__c.Bill_By__c = Task and Project_Task_Assignment__c.Is_Billable__c = true</description>
         <externalId>false</externalId>
         <label>Billable</label>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
@@ -84,6 +115,17 @@
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Client__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_User_Assignment__r.Project__r.Client__r.Name</formula>
+        <label>Client</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Cost_Rate__c</fullName>
@@ -115,7 +157,7 @@
         <precision>4</precision>
         <required>false</required>
         <scale>2</scale>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
@@ -146,7 +188,7 @@
         <description>Whether or not the time entry has been approved via Timesheet Approval.</description>
         <externalId>false</externalId>
         <label>Is Closed</label>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
@@ -156,7 +198,7 @@
         <description>Whether or not the time entry has been locked.</description>
         <externalId>false</externalId>
         <label>Is Locked</label>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
@@ -166,7 +208,7 @@
         <description>Whether or not the time entry is currently running.</description>
         <externalId>false</externalId>
         <label>Is Running</label>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
@@ -177,7 +219,7 @@
         <label>Locked Reason</label>
         <length>255</length>
         <required>false</required>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
@@ -188,9 +230,69 @@
         <externalId>false</externalId>
         <label>Notes</label>
         <required>false</required>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Project_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASESAFEID(Project_User_Assignment__r.Project__c)</formula>
+        <label>Project Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_Task_Assignment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project Task Assignment</label>
+        <referenceTo>Project_Task_Assignment__c</referenceTo>
+        <relationshipLabel>Time Entries</relationshipLabel>
+        <relationshipName>Time_Entries</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Project_Task__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_Task_Assignment__r.Project_Task__r.Name</formula>
+        <label>Project Task</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_User_Assignment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project User Assignment</label>
+        <referenceTo>Project_User_Assignment__c</referenceTo>
+        <relationshipLabel>Time Entries</relationshipLabel>
+        <relationshipName>Time_Entries</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Project__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_User_Assignment__r.Project__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Spent_Date__c</fullName>
@@ -198,7 +300,7 @@
         <externalId>false</externalId>
         <label>Spent Date</label>
         <required>false</required>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
@@ -218,16 +320,48 @@
         <externalId>false</externalId>
         <label>Timer Started At</label>
         <required>false</required>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>DateTime</type>
     </fields>
+    <fields>
+        <fullName>User_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASESAFEID(Project_User_Assignment__r.User__c)</formula>
+        <label>User Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>User__c</fullName>
+        <description>The Time Entry User is pulled from the Owner of the Weekly Timesheet</description>
+        <externalId>false</externalId>
+        <formula>Weekly_Time_Sheet__r.Owner:User.FirstName &amp; &quot; &quot; &amp; Weekly_Time_Sheet__r.Owner:User.LastName</formula>
+        <label>User</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Weekly_Time_Sheet__c</fullName>
+        <externalId>false</externalId>
+        <label>Weekly Time Sheet</label>
+        <referenceTo>Weekly_Time_Sheet__c</referenceTo>
+        <relationshipLabel>Time Entries</relationshipLabel>
+        <relationshipName>Time_Entries</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
     <label>Time Entry</label>
-    <listViews>
-        <fullName>All</fullName>
-        <filterScope>Everything</filterScope>
-        <label>All</label>
-    </listViews>
     <nameField>
         <displayFormat>{YYYY}{MM}{DD}-{00}</displayFormat>
         <label>Time Entry Id</label>
@@ -235,7 +369,11 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Time Entries</pluralLabel>
-    <searchLayouts/>
-    <sharingModel>ReadWrite</sharingModel>
+    <searchLayouts>
+        <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

@@ -1,16 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
+        <members>BatchGenerateWeeklyTimesheet</members>
+        <members>BatchGenerateWeeklyTimesheetTest</members>
+        <members>BatchScheduler</members>
+        <members>BatchSchedulerTest</members>
+        <members>Constants</members>
+        <members>SObjectDomain</members>
+        <members>SObjectDomainTest</members>
+        <members>TimeEntries</members>
+        <members>TimeEntriesService</members>
+        <members>TimeEntriesTest</members>
+        <members>TimeEntry</members>
         <members>TimeEntryController</members>
         <members>TimeEntryControllerTest</members>
+        <members>TimeEntryException</members>
+        <members>TimeEntryExceptionTest</members>
+        <members>TimeEntryListController</members>
+        <members>TimeEntryListControllerTest</members>
+        <members>Utils</members>
+        <members>UtilsTest</members>
+        <members>WeeklyTimeSheets</members>
+        <members>WeeklyTimeSheetsService</members>
+        <members>WeeklyTimeSheetsTest</members>
         <name>ApexClass</name>
     </types>
     <types>
+        <members>TimeEntriesTrigger</members>
+        <members>WeelyTimeSheetsTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>Message</members>
         <members>TimeEntryComponent</members>
+        <members>TimeEntryListComponent</members>
         <name>AuraDefinitionBundle</name>
     </types>
     <types>
         <members>Account.Client_Layout</members>
+        <members>Project_Task_Assignment__c.Project_Task_Assignment</members>
+        <members>Project_Task__c.Project_Task_Layout</members>
+        <members>Project_User_Assignment__c.Project_User_Assignment_Layout</members>
+        <members>Project__c.Project_Layout</members>
+        <members>Time_Entry__c.Time_Entry_Layout</members>
+        <members>Weekly_Time_Sheet__c.Weekly_Time_Sheet_Layout</members>
         <name>CompactLayout</name>
     </types>
     <types>
@@ -22,6 +55,19 @@
         <members>Account.Currency__c</members>
         <members>Account.Harvest_Id__c</members>
         <members>Account.Is_Active__c</members>
+        <members>User.Avatar_Url__c</members>
+        <members>User.Can_Create_Invoices__c</members>
+        <members>User.Can_Create_Projects__c</members>
+        <members>User.Can_See_Rates__c</members>
+        <members>User.Cost_Rate__c</members>
+        <members>User.Default_Hourly_Rate__c</members>
+        <members>User.Harvest_Id__c</members>
+        <members>User.Has_Access_To_All_Future_Projects__c</members>
+        <members>User.Is_Admin__c</members>
+        <members>User.Is_Contractor__c</members>
+        <members>User.Is_Project_Manager__c</members>
+        <members>User.Roles__c</members>
+        <members>User.Weekly_Capacity__c</members>
         <name>CustomField</name>
     </types>
     <types>
@@ -30,12 +76,20 @@
         <members>Project_User_Assignment__c</members>
         <members>Project__c</members>
         <members>Time_Entry__c</members>
+        <members>Weekly_Time_Sheet__c</members>
         <name>CustomObject</name>
     </types>
     <types>
         <members>Project_Task__c</members>
         <members>Project__c</members>
+        <members>Weekly_Time_Sheet__c</members>
         <name>CustomTab</name>
+    </types>
+    <types>
+        <members>Project_Record_Page</members>
+        <members>Time_Entry_Record_Page</members>
+        <members>Weekly_Time_Sheet_Record_Page</members>
+        <name>FlexiPage</name>
     </types>
     <types>
         <members>Currency_Code</members>
@@ -49,6 +103,7 @@
         <members>Project__c-Project Layout</members>
         <members>Time_Entry__c-Time Entry Layout</members>
         <members>User-Time Entry User Layout</members>
+        <members>Weekly_Time_Sheet__c-Weekly Time Sheet Layout</members>
         <name>Layout</name>
     </types>
     <types>
@@ -61,6 +116,13 @@
         <name>RecordType</name>
     </types>
     <types>
+        <members>Project_Task_Assignment__c.Require_Budget</members>
+        <members>Project_Task_Assignment__c.Require_Hourly_Rate</members>
+        <members>Project_User_Assignment__c.Require_Budget</members>
+        <members>Project_User_Assignment__c.Require_Hourly_Rate</members>
+        <members>Project__c.Fixed_Fee_Required</members>
+        <members>Project__c.Require_Project_Hourly_Rate</members>
+        <members>Project__c.Start_Date_End_Date_Validation</members>
         <members>User.Require_First_Name</members>
         <name>ValidationRule</name>
     </types>

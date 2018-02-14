@@ -11,6 +11,6 @@
     <tab>standard-Account</tab>
     <tab>Project__c</tab>
     <tab>Project_Task__c</tab>
-    <tab>Time_Entry__c</tab>
+    <tab>Weekly_Time_Sheet__c</tab>
     <uiType>Lightning</uiType>
 </CustomApplication>

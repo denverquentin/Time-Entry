@@ -1,3 +1,76 @@
-<aura:component >
-	
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader" controller="TimeEntryController" access="global">
+	<aura:attribute name="timeEntry" type="Object"/>
+	<aura:attribute name="projectOptions" type="List" default="[]"/>
+	<aura:attribute name="allTaskOptions" type="List" default="[]"/>
+	<aura:attribute name="taskOptions" type="List" default="[]"/>
+
+	<aura:attribute name="messageTitle" type="String"/>
+	<aura:attribute name="messageSeverity" type="String"/>
+	<aura:attribute name="messages" type="String[]"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+	<lightning:card iconName="custom:custom95" title="Time Entry">
+		<div class="slds-card__body slds-card__body_inner slds-border_top">
+			<br/>
+
+			<c:Message messageTitle="{!v.messageTitle}" messageSeverity="{!v.messageSeverity}" messages="{!v.messages}"/>
+
+			<aura:if isTrue="{!v.timeEntry.id != null}"><!-- edit existing -->
+				<div class="slds-form-element">
+					<label class="slds-form-element__label">Entry Date</label>
+					<div class="slds-form-element__control">
+						<lightning:formattedDateTime value="{!v.timeEntry.entryDate}" year="2-digit" month="short" day="2-digit" weekday="long"/>
+					</div>
+				</div>
+				<br/>
+
+				<div class="slds-form-element">
+					<label class="slds-form-element__label">Client - Project</label>
+					<div class="slds-form-element__control">
+						<lightning:formattedText value="{!v.timeEntry.clientAndProjectName}"/>
+					</div>
+				</div>
+
+				<br/>
+
+				<div class="slds-form-element">
+					<label class="slds-form-element__label">Task</label>
+					<div class="slds-form-element__control">
+						<lightning:formattedText value="{!v.timeEntry.projectTaskName}"/>
+					</div>
+				</div>
+				<br/>
+
+				<aura:set attribute="else"><!-- new -->
+					<ui:inputDate aura:id="entryDate" label="Entry Date" class="field" value="{!v.timeEntry.entryDate}"
+						displayDatePicker="true" required="true"/>
+					<br/>
+
+					<lightning:combobox aura:id="projectUserAssignmentId" name="project" label="Client - Project" required="true"
+						placeholder="Choose Client Project"	onchange="{!c.handleProjectOptionSelected}"	options="{!v.projectOptions}"
+						value="{!v.timeEntry.projectUserAssignmentId}"/>
+					<br/>
+
+					<lightning:combobox aura:id="projectTaskAssignmentId" name="task" label="Task" required="true"
+						placeholder="Choose Task" options="{!v.taskOptions}" value="{!v.timeEntry.projectTaskAssignmentId}"/>
+					<br/>
+				</aura:set>
+			</aura:if>
+
+			<ui:inputTextArea aura:id="notes" label="Notes" value="{!v.timeEntry.notes}" rows="2"/>
+			<br/>
+		</div>
+
+		<aura:set attribute="footer">
+			<aura:if isTrue="{!v.timeEntry.isRunning}">
+				<lightning:button label="Stop Timer" variant="brand" onclick="{!c.saveTimeEntry}"/>
+
+				<aura:set attribute="else">
+					<lightning:button label="Start Timer" variant="brand" onclick="{!c.saveTimeEntry}"/>
+				</aura:set>
+			</aura:if>
+			<lightning:button label="Cancel" onclick="{!c.cancel}"/>
+		</aura:set>
+	</lightning:card>
 </aura:component>
